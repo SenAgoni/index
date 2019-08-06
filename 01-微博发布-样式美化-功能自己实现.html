@@ -105,15 +105,15 @@
             if (texts === '') {
                 alert('请正确输入内容')
             } else {
+                //创建时间对象 获取时间戳  时间戳+就可以获取
+                var now = +new Date();
                 var newsli = document.createElement('li');
-                newsli.innerHTML = '<p>' + texts + '</p>' + '<span>删除</span>';
+                newsli.innerHTML = '<p>' + texts + '</p>' + '<span data-id=' + now + '>删除</span>';
                 weiboList.insertBefore(newsli, weiboList.children[0]);
                 weiboText.value = '';  //清空数据
                 //需求:把数据存到浏览器
                 //先获取浏览器数据
                 var newsList = JSON.parse(localStorage.getItem('newsList')) || [];
-                //创建时间对象 获取时间戳  时间戳+就可以获取
-                var now = +new Date();
                 //创建对象 给数组添加属性
                 var newsItem = {
                     id: now,
@@ -131,8 +131,8 @@
         var newsList = JSON.parse(localStorage.getItem('newsList')) || [];
         newsList.forEach(function (item, index) {
             var textsli = document.createElement('li');
-            textsli.innerHTML = '<p>' + item.content + '</p>' + '<span>删除</span>';
-            weiboList.insertBefore(textsli,weiboList.children[0]);
+            textsli.innerHTML = '<p>' + item.content + '</p>' + '<span data-id=' + item.id + '>删除</span>';
+            weiboList.insertBefore(textsli, weiboList.children[0]);
         })
         //点击按钮发布新闻
         weiboBtn.addEventListener('click', release)
@@ -145,6 +145,16 @@
         //点击删除,删除内容
         weiboList.addEventListener('click', function (event) {
             event.target.parentElement.remove();
+            //点击删除 删除浏览器中的数据
+            //先获取数据
+            var newsList = JSON.parse(localStorage.getItem('newsList')) || [];
+            newsList.forEach(function (item, index) {
+                var id = +event.target.dataset.id;
+                if (id === item.id) {
+                    newsList.splice(index, 1);
+                }
+            })
+            localStorage.setItem('newsList', JSON.stringify(newsList)); 
         })
     </script>
 </body>
