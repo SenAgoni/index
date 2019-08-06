@@ -108,6 +108,7 @@
                 var newsli = document.createElement('li');
                 newsli.innerHTML = '<p>' + texts + '</p>' + '<span>删除</span>';
                 weiboList.insertBefore(newsli, weiboList.children[0]);
+                weiboText.value = '';  //清空数据
             }
         }
         //点击按钮发布新闻
