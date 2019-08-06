@@ -123,9 +123,17 @@
                 newsList.push(newsItem);
                 // console.log(newsList);
                 //把数据存到浏览器中
-                localStorage.setItem('newsList',JSON.stringify(newsList));
+                localStorage.setItem('newsList', JSON.stringify(newsList));
             }
         }
+        //在页面加载时 提取浏览器数据
+        //先获取数据
+        var newsList = JSON.parse(localStorage.getItem('newsList')) || [];
+        newsList.forEach(function (item, index) {
+            var textsli = document.createElement('li');
+            textsli.innerHTML = '<p>' + item.content + '</p>' + '<span>删除</span>';
+            weiboList.insertBefore(textsli,weiboList.children[0]);
+        })
         //点击按钮发布新闻
         weiboBtn.addEventListener('click', release)
         //按回车键发布内容
