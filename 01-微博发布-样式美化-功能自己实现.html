@@ -109,6 +109,21 @@
                 newsli.innerHTML = '<p>' + texts + '</p>' + '<span>删除</span>';
                 weiboList.insertBefore(newsli, weiboList.children[0]);
                 weiboText.value = '';  //清空数据
+                //需求:把数据存到浏览器
+                //先获取浏览器数据
+                var newsList = JSON.parse(localStorage.getItem('newsList')) || [];
+                //创建时间对象 获取时间戳  时间戳+就可以获取
+                var now = +new Date();
+                //创建对象 给数组添加属性
+                var newsItem = {
+                    id: now,
+                    content: texts
+                }
+                //把对象中的数据添加到数组中
+                newsList.push(newsItem);
+                // console.log(newsList);
+                //把数据存到浏览器中
+                localStorage.setItem('newsList',JSON.stringify(newsList));
             }
         }
         //点击按钮发布新闻
