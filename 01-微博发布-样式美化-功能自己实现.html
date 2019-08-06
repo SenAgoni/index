@@ -118,6 +118,10 @@
                 release();
             }
         })
+        //点击删除,删除内容
+        weiboList.addEventListener('click', function (event) {
+            event.target.parentElement.remove();
+        })
     </script>
 </body>
 
