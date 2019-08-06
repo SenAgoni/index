@@ -94,6 +94,23 @@
             </li>
         </ul>
     </div>
+    <script>
+        //获取元素
+        var weiboBtn = document.querySelector('.weibo-btn');
+        var weiboText = document.querySelector('.weibo-text');
+        var weiboList = document.querySelector('.weibo-list');
+        //点击按钮发布新闻
+        weiboBtn.addEventListener('click', function () {
+            var texts = weiboText.value;
+            if (texts === '') {
+                alert('请正确输入内容')
+            } else {
+                var newsli = document.createElement('li');
+                newsli.innerHTML = '<p>' + texts + '</p>' + '<span>删除</span>';
+                weiboList.insertBefore(newsli, weiboList.children[0]);
+            }
+        })
+    </script>
 </body>
 
 </html>
