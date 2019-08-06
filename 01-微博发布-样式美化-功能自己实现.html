@@ -99,8 +99,8 @@
         var weiboBtn = document.querySelector('.weibo-btn');
         var weiboText = document.querySelector('.weibo-text');
         var weiboList = document.querySelector('.weibo-list');
-        //点击按钮发布新闻
-        weiboBtn.addEventListener('click', function () {
+        //封装函数
+        var release = function () {
             var texts = weiboText.value;
             if (texts === '') {
                 alert('请正确输入内容')
@@ -108,6 +108,14 @@
                 var newsli = document.createElement('li');
                 newsli.innerHTML = '<p>' + texts + '</p>' + '<span>删除</span>';
                 weiboList.insertBefore(newsli, weiboList.children[0]);
+            }
+        }
+        //点击按钮发布新闻
+        weiboBtn.addEventListener('click', release)
+        //按回车键发布内容
+        weiboText.addEventListener('keyup', function (event) {
+            if (event.keyCode === 13) {
+                release();
             }
         })
     </script>
